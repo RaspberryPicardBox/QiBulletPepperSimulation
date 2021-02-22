@@ -5,6 +5,7 @@ import pybullet
 import cv2
 import threading
 import urdfConvertor
+import vhacdConvertor
 
 
 def camera_view():
@@ -15,35 +16,16 @@ def camera_view():
 
 
 if __name__ == "__main__":
-    urdfConvertor.__init__()
+    #vhacdConvertor.__init__()  # Decompose .OBJ objects to a single appropriate URDF with correct collisions
+    urdfConvertor.__init__()  # Convert all .STL and .OBJ files to .URDF for PyBullet
 
     simulation_manager = SimulationManager()
     client_id = simulation_manager.launchSimulation(gui=True)
 
-    pybullet.loadURDF("objects\wall.urdf", basePosition=[-1, -1.5, 0], baseOrientation=[1, 0, 0, 1], useFixedBase=1,
-                      physicsClientId=client_id)  # Right Wall
+    pybullet.loadURDF("objects\\room.urdf", basePosition=[-2, -2, 0], baseOrientation=[0, 0, 0, 1], useFixedBase=1,
+                      physicsClientId=client_id)  # Room test
 
-    pybullet.loadURDF("objects\wall.urdf", basePosition=[1, -1.5, 0], baseOrientation=[1, 0, 0, 1], useFixedBase=1,
-                      physicsClientId=client_id)  # Second Right Wall
-
-    pybullet.loadURDF("objects\wall.urdf", basePosition=[-1, 2, 0], baseOrientation=[1, 0, 0, 1], useFixedBase=1,
-                      physicsClientId=client_id)  # Left Wall
-
-    pybullet.loadURDF("objects\wall.urdf", basePosition=[1, 2, 0], baseOrientation=[1, 0, 0, 1], useFixedBase=1,
-                      physicsClientId=client_id)  # Second Left Wall
-
-    pybullet.loadURDF("objects\wall.urdf", basePosition=[-1.5, -2, 0], baseOrientation=[1, 1, 1, 1], useFixedBase=1,
-                      physicsClientId=client_id)  # Back Right
-
-    pybullet.loadURDF("objects\wall.urdf", basePosition=[-1.5, 0, 0], baseOrientation=[1, 1, 1, 1], useFixedBase=1,
-                      physicsClientId=client_id)  # Back Left
-
-    pybullet.loadURDF("objects\wall.urdf", basePosition=[2.5, -2, 0], baseOrientation=[1, 1, 1, 1], useFixedBase=1,
-                      physicsClientId=client_id)  # Internal Right
-
-    pepper = simulation_manager.spawnPepper(
-        client_id,
-        spawn_ground_plane=True)
+    pepper = simulation_manager.spawnPepper(client_id, spawn_ground_plane=True)
 
     pepper.goToPosture("Stand", 0)
     handle = pepper.subscribeCamera(PepperVirtual.ID_CAMERA_TOP)

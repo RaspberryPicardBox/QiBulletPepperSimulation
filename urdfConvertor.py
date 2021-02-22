@@ -32,13 +32,10 @@ def __init__():
         if foldername[-5:].lower() == ".urdf":
             break
         for filename in os.listdir("./objects/" + foldername):
-            print(filename)
-            print(filename[-4:])
             if (filename[-4:].lower() == ".stl") or (filename[-4:].lower() == ".obj"):
                 urdf = "./objects/"
                 urdf += filename[:-4]
                 urdf += ".urdf"
-                print(urdf)
                 if not os.path.isfile(urdf):
                     f = open(urdf, "w")
                     f.write(default_text1)
