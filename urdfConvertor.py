@@ -28,8 +28,14 @@ default_text3 = """\" scale=\"1.0 1.0 1.0\" />
 
 
 def __init__():
+
     for foldername in os.listdir("./objects"):
         if foldername[-5:].lower() == ".urdf":
+            os.remove("./objects/" + foldername)
+
+    for foldername in os.listdir("./objects"):
+        if foldername[-5:].lower() == ".urdf":
+            os.remove("./objects/" + foldername)
             break
         for filename in os.listdir("./objects/" + foldername):
             if (filename[-4:].lower() == ".stl") or (filename[-4:].lower() == ".obj"):
