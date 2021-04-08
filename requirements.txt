@@ -1,0 +1,4 @@
+qibullet
+numpy
+pybullet
+opencv-python
